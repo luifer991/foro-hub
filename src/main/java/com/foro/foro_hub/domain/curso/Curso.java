@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table (name = "curso")
+@Table (name = "cursos")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,6 +16,8 @@ public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre; // hacer un enum
-    private String categoria; // hacer un enum
+    @Enumerated(EnumType.STRING)
+    private Cursos nombre;
+    @Enumerated(EnumType.STRING)
+    private Categoria categoria;
 }

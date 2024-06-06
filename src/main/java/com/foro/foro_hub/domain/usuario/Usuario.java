@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table (name = "usuario")
+@Table (name = "usuarios")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,8 +17,10 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre;
+    private String login;
     private String email;
     private String password;
-    private Perfil perfiles; // many to many
+    @JoinColumn(name = "perfil_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    private Perfil perfil;
 }
