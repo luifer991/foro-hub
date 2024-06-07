@@ -4,7 +4,6 @@ import com.foro.foro_hub.domain.curso.Curso;
 import com.foro.foro_hub.domain.response.Respuesta;
 import com.foro.foro_hub.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,13 +26,22 @@ public class Topico {
     private LocalDateTime fecha;
     @Enumerated(EnumType.STRING)
     private Status status;
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
-    private Usuario usuario; // one to many
+    private Usuario usuario;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "curso_id")
     private Curso curso;
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "respuesta_id")
     private Respuesta respuestas;
+    
+    public Topico ( DatosRegistroTopico datosRegistroTopico) {
+        this.titulo = datosRegistroTopico.titulo();
+        this.mensaje = datosRegistroTopico.mensaje();
+        this.fecha = LocalDateTime.now();
+        this.status = Status.NUEVO;
+        this.usuario = new Usuario(usuario.getLogin());
+        this.curso = new Curso(curso.getNombre());
+    }
 }

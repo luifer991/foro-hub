@@ -20,4 +20,8 @@ public class Curso {
     private Cursos nombre;
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
+    
+    public Curso ( Cursos nombre ) {
+        this.nombre = Cursos.valueOf( getNombre().toString() );
+    }
 }
