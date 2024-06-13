@@ -5,9 +5,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-//import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UsuarioRepository extends JpaRepository <Usuario, Long> {
     @Query ( "SELECT u FROM Usuario u WHERE u.login = :username" )
-    List<Usuario> findByLoginUser ( @Param ( "username" ) String username ); //UserDetails
+    UserDetails findByLoginUser ( @Param ( "username" ) String username );
 }
