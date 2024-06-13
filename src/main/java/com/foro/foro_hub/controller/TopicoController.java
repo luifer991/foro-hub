@@ -1,33 +1,37 @@
 package com.foro.foro_hub.controller;
 
-import com.foro.foro_hub.domain.topic.DatosRegistroTopico;
-import com.foro.foro_hub.domain.topic.DatosRespuestaTopico;
-import com.foro.foro_hub.domain.topic.Topico;
-import com.foro.foro_hub.domain.topic.TopicoRepository;
+import com.foro.foro_hub.domain.topic.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping ( "/topicos" )
 public class TopicoController {
 
     @Autowired
-    TopicoRepository topicoRepository;
+    private RegistroTopicoService registroTopicoService;
+    @Autowired
+    private TopicoRepository topicoRepository;
 
     @PostMapping
     @Transactional
-    public ResponseEntity <DatosRespuestaTopico> enviarTopico (
-            @RequestBody @Valid DatosRegistroTopico datosRegistroTopico ) {
-        Topico topico = topicoRepository.save( new Topico( datosRegistroTopico ) );
-        DatosRespuestaTopico datosRespuestaTopico = new DatosRespuestaTopico(
-                topico.getTitulo(), topico.getMensaje(), topico.getFecha(),
-                topico.getUsuario(), topico.getCurso(), topico.getStatus());
-        return ResponseEntity.ok().body(datosRespuestaTopico);
+    public ResponseEntity nuevoTopico (
+            @RequestBody @Valid DatosRegistroTopico datosRegistroTopico) {
+        var response = registroTopicoService.registrar( datosRegistroTopico );
+        return ResponseEntity.ok(response);
+    }
+    
+    @GetMapping
+    public ResponseEntity<Page<DatosListadoTopico>> listarTopicos (
+            @PageableDefault(size = 10, sort = { "fecha" }, direction = Sort.Direction.ASC ) Pageable paginacion ) {
+        var page = topicoRepository.findAllByFechaTrue( paginacion ).map( DatosListadoTopico::new );
+        return ResponseEntity.ok( page );
     }
 }
