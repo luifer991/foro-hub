@@ -23,5 +23,14 @@ public class Curso {
     
     public Curso ( Cursos nombre ) {
         this.nombre = Cursos.valueOf( getNombre().toString() );
+        this.categoria = Categoria.valueOf( getNombre().toString() );
+    }
+    
+    public Curso ( DatosCurso curso ) {
+        this.id = curso.cursoId();
+    }
+    
+    public Curso ( Long aLong ) {
+        this.id = aLong;
     }
 }
