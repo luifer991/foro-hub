@@ -1,17 +1,19 @@
 package com.foro.foro_hub.domain.topic;
 
-import com.foro.foro_hub.domain.curso.Curso;
-import com.foro.foro_hub.domain.curso.Cursos;
-import com.foro.foro_hub.domain.usuario.Usuario;
-
 import java.time.LocalDateTime;
 
 public record DatosRespuestaTopico(
+        Long id,
         String titulo,
         String mensaje,
-        LocalDateTime fecha,
-        Usuario usuario,
-        Curso curso,
+        Long idUsuario,
+        Long idCurso,
         Status status
 ) {
+    public DatosRespuestaTopico ( Topico topico ) {
+        this(topico.getId(),
+                topico.getTitulo(), topico.getMensaje(),
+                topico.getUsuario().getId(),
+                topico.getCurso().getId(), topico.getStatus());
+    }
 }
