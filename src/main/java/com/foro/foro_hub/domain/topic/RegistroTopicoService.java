@@ -19,8 +19,8 @@ public class RegistroTopicoService {
     
     public DatosRespuestaTopico registrar ( DatosRegistroTopico datos ) {
         
-        if ( ! cursoRepository.findById( datos.idUsuario() ).isPresent() ) {
-            throw new ValidationExist( "El usuario no existe" );
+        if ( ! cursoRepository.findById( datos.idCurso() ).isPresent() ) {
+            throw new ValidationExist( "El curso no existe" );
         }
         
         if ( topicoRepository.findByTitulo( datos.titulo() ).isPresent() ) {
