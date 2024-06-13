@@ -7,10 +7,8 @@ create table topicos(
         status varchar(10) not null,
         usuario_id bigint not null,
         curso_id bigint not null,
-        respuesta_id bigint not null,
 
         primary key(id),
         constraint fk_topicos_usuarios_id foreign key (usuario_id) references usuarios(id),
-        constraint fk_topicos_curso_id foreign key (curso_id) references cursos(id),
-        constraint fk_topicos_respuesta_id foreign key (respuesta_id) references respuestas(id)
+        constraint fk_topicos_curso_id foreign key (curso_id) references cursos(id)
 );
