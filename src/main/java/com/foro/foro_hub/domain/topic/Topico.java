@@ -1,7 +1,6 @@
 package com.foro.foro_hub.domain.topic;
 
 import com.foro.foro_hub.domain.curso.Curso;
-import com.foro.foro_hub.domain.response.Respuesta;
 import com.foro.foro_hub.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,7 +31,22 @@ public class Topico {
     @ManyToOne ( fetch = FetchType.LAZY )
     @JoinColumn ( name = "curso_id" )
     private Curso curso;
-//    @ManyToOne ( fetch = FetchType.LAZY )
-//    @JoinColumn ( name = "respuesta_id" )
-//    private Respuesta respuestas;
+    //    @ManyToOne ( fetch = FetchType.LAZY )
+    //    @JoinColumn ( name = "respuesta_id" )
+    //    private Respuesta respuestas;
+    
+    public void actualizarTopico ( DatosActualizarTopico datos ) {
+        if ( datos.titulo() != null ) {
+            this.titulo = datos.titulo();
+        }
+        if ( datos.mensaje() != null ) {
+            this.mensaje = datos.mensaje();
+        }
+        if ( datos.fecha() == null ) {
+            this.fecha = LocalDateTime.now();
+        }
+        if ( datos.status() == null ) {
+            this.status = Status.UPDATED;
+        }
+    }
 }
