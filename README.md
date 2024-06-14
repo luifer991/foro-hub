@@ -44,6 +44,7 @@ Features
 #### Prerequisites
 
 + Java 17 or higher
++ Spring boot 3.2 or higher
 + Maven 3.6.3 or higher
 
 #### Installation
