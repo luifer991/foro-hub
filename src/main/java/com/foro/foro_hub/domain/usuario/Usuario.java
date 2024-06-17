@@ -73,4 +73,16 @@ public class Usuario implements UserDetails { //
     public boolean isEnabled () {
         return true;
     }
+    
+    public void actualizarUsuario ( DatosActualizarUsuario datos ) {
+        if ( datos.login() != null ) {
+            this.login = datos.login();
+        }
+        if ( datos.email() != null ) {
+            this.email = datos.email();
+        }
+        if ( datos.password() != null ) {
+            this.password = datos.password();
+        }
+    }
 }
