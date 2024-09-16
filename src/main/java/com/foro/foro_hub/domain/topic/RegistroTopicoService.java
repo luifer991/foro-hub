@@ -19,7 +19,7 @@ public class RegistroTopicoService {
     
     public DatosRespuestaTopico registrar ( DatosRegistroTopico datos ) {
         
-        if ( ! cursoRepository.findById( datos.idCurso() ).isPresent() ) {
+        if ( cursoRepository.findById( datos.idCurso() ).isEmpty() ) {
             throw new ValidationExist( "El curso no existe" );
         }
         
